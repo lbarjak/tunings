@@ -57,8 +57,11 @@ function write_fifths() {
   }
   for (let i = 0; i <= 12; i++) {
     btns[i] = document.querySelector('input[name="button' + i + '"]');
-    btns[i].onclick = function () {
-      alert("btns[" + i + "]");
+    btns[i].onmousedown = function () {
+      console.log("btns[" + i + "] down");
+    };
+    btns[i].onmouseup = function () {
+      console.log("btns[" + i + "] up");
     };
   }
 }
