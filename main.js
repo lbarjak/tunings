@@ -1,6 +1,6 @@
 let start_note = 440;
-let step = Math.pow(2, 1 / 12);
-let fifth_chromatic = Math.pow(step, 7);
+let chromatic_step = Math.pow(2, 1 / 12);
+let fifth_chromatic = Math.pow(chromatic_step, 7);
 let fifth_natural = 1.5;
 let fifths;
 let notes_chromatic = [];
@@ -8,19 +8,17 @@ let notes_natural = [];
 
 function start() {
   fifths = document.getElementById("fifths");
-  chromatic();
-  fifths.innerHTML += "-------";
+  //chromatic();
+  //fifths.innerHTML += "-------";
   notes_chromatic = put_fifths(fifth_chromatic, notes_chromatic);
   notes_natural = put_fifths(fifth_natural, notes_natural);
-  write_fifths(notes_chromatic);
-  fifths.innerHTML += "-------";
-  write_fifths(notes_natural);
+  write_fifths();
 }
 
 function chromatic() {
   for (let i = 0; i <= 12; i++) {
     fifths.innerHTML +=
-      "<li>" + (start_note * Math.pow(2, i / 12)).toFixed(2) + "</li>";
+      "<div>" + (start_note * Math.pow(2, i / 12)).toFixed(2) + "</div>";
   }
 }
 
@@ -40,8 +38,13 @@ function put_fifths(typeOfFifth, notes) {
   return notes;
 }
 
-function write_fifths(notes) {
+function write_fifths() {
   for (let i = 0; i <= 12; i++) {
-    fifths.innerHTML += "<li>" + notes[i] + "</li>";
+    fifths.innerHTML +=
+      '<div><input type="button" name="button" value=">"> ' +
+      notes_chromatic[i] +
+      " - " +
+      notes_natural[i] + " | " + (100 * (notes_natural[i] - notes_chromatic[i]) / notes_chromatic[i]).toFixed(2) +
+      " %</div>";
   }
 }
