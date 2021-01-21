@@ -5,6 +5,7 @@ let fifth_natural = 1.5;
 let fifths;
 let notes_chromatic = [];
 let notes_natural = [];
+let btns = [];
 
 function start() {
   fifths = document.getElementById("fifths");
@@ -41,10 +42,23 @@ function put_fifths(typeOfFifth, notes) {
 function write_fifths() {
   for (let i = 0; i <= 12; i++) {
     fifths.innerHTML +=
-      '<div><input type="button" name="button' + i + '"value=">"> ' +
+      '<div><input type="button" name="button' +
+      i +
+      '"value=">"> ' +
       notes_chromatic[i] +
       " - " +
-      notes_natural[i] + " | " + (100 * (notes_natural[i] - notes_chromatic[i]) / notes_chromatic[i]).toFixed(2) +
+      notes_natural[i] +
+      " | " +
+      (
+        (100 * (notes_natural[i] - notes_chromatic[i])) /
+        notes_chromatic[i]
+      ).toFixed(2) +
       " %</div>";
+  }
+  for (let i = 0; i <= 12; i++) {
+    btns[i] = document.querySelector('input[name="button' + i + '"]');
+    btns[i].onclick = function () {
+      alert("btns[" + i + "]");
+    };
   }
 }
