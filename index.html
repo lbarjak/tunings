@@ -26,12 +26,15 @@
             let step = Math.pow(2, 1 / 12);
             let chromatic_fifth = Math.pow(step, 7);
             let natural_fifth = 1.5;
-
-            write_fifths(start_note, chromatic_fifth);
+            notes_chromatic = [];
+            notes_natural = [];
+            notes_chromatic = put_fifths(start_note, chromatic_fifth, notes_chromatic);
+            notes_natural = put_fifths(start_note, natural_fifth, notes_natural);
+            write_fifths(notes_chromatic);
             fifths.innerHTML += "-------"
-            write_fifths(start_note, natural_fifth);
+            write_fifths(notes_natural);
 
-            function write_fifths(start_note, typeOfFifth) {
+            function put_fifths(start_note, typeOfFifth, notes) {
                 let actual_fifth;
                 notes = [];
                 for (let i = 0; i <= 12; i++) {
@@ -43,6 +46,9 @@
                     start_note = start_note * typeOfFifth;
                 }
                 notes.sort();
+                return notes;
+            }
+            function write_fifths(notes) {
                 for (let i = 0; i <= 12; i++) {
                     fifths.innerHTML += "<li>" + notes[i] + "</li>";
                 }
