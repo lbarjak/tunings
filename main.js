@@ -34,7 +34,7 @@ function put_fifths(typeOfFifth, notes) {
     while (actual_fifth > start_note * 2.1) {
       actual_fifth = actual_fifth / 2;
     }
-    notes.push(actual_fifth.toFixed(2));
+    notes.push(actual_fifth);
     local_start_note = local_start_note * typeOfFifth;
   }
   notes.sort();
@@ -47,9 +47,9 @@ function write_fifths() {
       '<div><input type="button" name="button' +
       i +
       '"value=">"> ' +
-      notes_chromatic[i] +
+      notes_chromatic[i].toFixed(2) +
       " - " +
-      notes_natural[i] +
+      notes_natural[i].toFixed(2) +
       " | " +
       (
         (100 * (notes_natural[i] - notes_chromatic[i])) /
@@ -74,9 +74,15 @@ function write_fifths() {
       oscillators[1][i].connect(audioCtx.destination);
     };
     btns[i].onmouseup = function () {
+      stop();
+    };
+    btns[i].onmousemove = function () {
+      stop();
+    };
+    function stop() {
       console.log("btns[" + i + "] up");
       oscillators[0][i].stop(0);
       oscillators[1][i].stop(0);
-    };
+    }
   }
 }
