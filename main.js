@@ -61,6 +61,24 @@ function write_fifths() {
     btns[i] = document.querySelector('input[name="button' + i + '"]');
 
     btns[i].onmousedown = function () {
+      start();
+    };
+    btns[i].ontouchstart = function () {
+      start();
+    };
+    btns[i].onmouseup = function () {
+      stop();
+    };
+    btns[i].onmousemove = function () {
+      stop();
+    };
+    btns[i].ontouchend = function () {
+      stop();
+    };
+    btns[i].ontouchmove = function () {
+      stop();
+    };
+    function start() {
       console.log("btns[" + i + "] down");
       oscillators[0][i] = audioCtx.createOscillator();
       oscillators[0][i].type = "sine";
@@ -72,13 +90,7 @@ function write_fifths() {
       oscillators[0][i].connect(audioCtx.destination);
       oscillators[1][i].start(0);
       oscillators[1][i].connect(audioCtx.destination);
-    };
-    btns[i].onmouseup = function () {
-      stop();
-    };
-    btns[i].onmousemove = function () {
-      stop();
-    };
+    }
     function stop() {
       console.log("btns[" + i + "] up");
       oscillators[0][i].stop(0);
