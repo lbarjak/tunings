@@ -7,7 +7,7 @@ let notes_chromatic = [];
 let notes_natural = [];
 let btns = [];
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-let oscillators = [[],[]];
+let oscillators = [[], []];
 
 function start() {
   fifths = document.getElementById("fifths");
@@ -60,15 +60,14 @@ function write_fifths() {
   for (let i = 0; i <= 12; i++) {
     btns[i] = document.querySelector('input[name="button' + i + '"]');
 
-    oscillators[0][i] = audioCtx.createOscillator();
-    oscillators[0][i].type = 'sine';
-    oscillators[0][i].frequency.value = notes_chromatic[i];
-    oscillators[1][i] = audioCtx.createOscillator();
-    oscillators[1][i].type = 'sine';
-    oscillators[1][i].frequency.value = notes_natural[i];
-
     btns[i].onmousedown = function () {
       console.log("btns[" + i + "] down");
+      oscillators[0][i] = audioCtx.createOscillator();
+      oscillators[0][i].type = "sine";
+      oscillators[0][i].frequency.value = notes_chromatic[i];
+      oscillators[1][i] = audioCtx.createOscillator();
+      oscillators[1][i].type = "sine";
+      oscillators[1][i].frequency.value = notes_natural[i];
       oscillators[0][i].start(0);
       oscillators[0][i].connect(audioCtx.destination);
       oscillators[1][i].start(0);
