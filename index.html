@@ -10,10 +10,15 @@
     <meta name="description" content="Circle Of Fifths">
     <meta name="keywords" content="circle of fifths">
     <link rel="stylesheet" href="main.css">
-    <script src="main.js"></script>
+    <script type="module">
+        import Midi from './midi.js';
+        window.onload = function (e) {
+            new Midi();
+        }
+    </script>
 </head>
 
-<body onload="start();">
+<body>
     <div class="wrapper">
         <div class="item1"></div>
         <div id="fifths"></div>
