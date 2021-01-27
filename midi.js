@@ -1,14 +1,19 @@
-'use strict'
-
-import Oscillators from './oscillators.js'
-let oscillators = new Oscillators()
+import Main from './main.js'
 
 export default class Midi {
-    constructor() {
-        navigator.requestMIDIAccess().then(this.midi)
-    }
+    static instance = null
 
+    constructor() {
+        if(!Midi.instance) {
+            navigator.requestMIDIAccess().then(this.midi)
+            self = this
+            this.main = new Main();
+        }
+        return Midi.instance
+    }
+    
     midi(response) {
+
         for (let inputPort of response.inputs.values()) {
             console.log(
                 'input ports:',
@@ -54,11 +59,11 @@ export default class Midi {
                 midiVelocity
             )
             if (midiEvent == '9') {
-                console.log(
-                    oscillators.play(midiKey, midiChannel, midiVelocity)
-                )
+                console.log('9')
+                self.main.play(midiKey, midiChannel, midiVelocity)
             } else {
-                console.log(oscillators.stop(midiKey, midiChannel))
+                console.log('8')
+                self.main.stop(midiKey, midiChannel)
             }
         }
     }
