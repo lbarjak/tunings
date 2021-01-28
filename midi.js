@@ -53,10 +53,10 @@ export default class Midi {
                 midiVelocity
             )
             if (midiEvent == '9') {
-                console.log('9')
+                //console.log('9')
                 self.main.play(midiKey, midiChannel, midiVelocity)
             } else {
-                console.log('8')
+                //console.log('8')
                 self.main.stop(midiKey, midiChannel)
             }
         }
