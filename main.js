@@ -3,9 +3,9 @@ import Midi from './midi.js'
 export default class Main {
     static instance = null
 
-    constructor() {
+    static getInstance() {
         if (!Main.instance) {
-            Main.instance = this
+            Main.instance = new Main()
             this.midi = new Midi()
         }
         return Main.instance

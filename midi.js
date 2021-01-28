@@ -1,19 +1,13 @@
 import Main from './main.js'
 
 export default class Midi {
-    static instance = null
-
     constructor() {
-        if(!Midi.instance) {
-            navigator.requestMIDIAccess().then(this.midi)
-            self = this
-            this.main = new Main();
-        }
-        return Midi.instance
+        navigator.requestMIDIAccess().then(this.midi)
+        self = this
+        this.main = Main.getInstance()
     }
-    
-    midi(response) {
 
+    midi(response) {
         for (let inputPort of response.inputs.values()) {
             console.log(
                 'input ports:',
