@@ -24,6 +24,8 @@ export default class Synthesizer {
             this.channels[note][channel] = false
         }
         if (!this.channels[note][channel]) {
+/*             this.channels[note][channel] = this.context.createOscillator();
+            this.channels[note][channel].type = 'sine' */
             this.channels[note][channel] = new adsr(
                 this.context,
                 0,
@@ -33,7 +35,7 @@ export default class Synthesizer {
             )
             this.channels[note][channel].frequency.value =
                 440 * Math.pow(2, (note - 69) / 12)
-            console.log(this.channels[note][channel].frequency.value, "Hz")
+            console.log(this.channels[note][channel].frequency.value + " Hz")
             this.channels[note][channel].type = this.type
             this.channels[note][channel].connect(this.gain)
             this.channels[note][channel].start(this.context.currentTime)
