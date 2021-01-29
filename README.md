@@ -1,2 +1,2 @@
 # circleOfFifths
-Demo: https://lbarjak.github.io/circleOfFifths/
+Demo: https://lbarjak.github.io/tunings/
