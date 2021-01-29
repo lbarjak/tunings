@@ -17,6 +17,23 @@ export default class Synthesizer {
         this.gain.connect(this.context.destination)
         this.type = 'square'
         this.context.resume()
+        this.tuningEqual = []
+        this.tuningEqualF()
+    }
+    tuningEqualF() {
+/*         for (let i = 0; i <= 128; i++) {
+            this.tuningEqual[i] = 440 * Math.pow(2, (i - 69) / 12)
+            console.log("note " + i + " freq " + this.tuningEqual[i] + " Hz")
+        } */
+        for (let i = 117; i <= 128; i++) {
+            this.tuningEqual[i] = 440 * Math.pow(2, (i - 69) / 12)
+        }
+        for (let i = 128; i > 11; i--) {
+            this.tuningEqual[i - 12] = this.tuningEqual[i] / 2
+        }
+        for (let i = 0; i <= 128; i++) {
+            console.log("note " + i + " freq " + this.tuningEqual[i] + " Hz")
+        }
     }
     noteOn(note, channel) {
         if (!this.channels[note]) {
@@ -24,7 +41,7 @@ export default class Synthesizer {
             this.channels[note][channel] = false
         }
         if (!this.channels[note][channel]) {
-/*             this.channels[note][channel] = this.context.createOscillator();
+            /*             this.channels[note][channel] = this.context.createOscillator();
             this.channels[note][channel].type = 'sine' */
             this.channels[note][channel] = new adsr(
                 this.context,
@@ -33,9 +50,11 @@ export default class Synthesizer {
                 0.3,
                 0.3
             )
-            this.channels[note][channel].frequency.value =
-                440 * Math.pow(2, (note - 69) / 12)
-            console.log(this.channels[note][channel].frequency.value + " Hz")
+/*             this.channels[note][channel].frequency.value =
+                440 * Math.pow(2, (note - 69) / 12) */
+            console.log(this.tuningEqual[note])
+            this.channels[note][channel].frequency.value = this.tuningEqual[note]
+            console.log(this.channels[note][channel].frequency.value + ' Hz')
             this.channels[note][channel].type = this.type
             this.channels[note][channel].connect(this.gain)
             this.channels[note][channel].start(this.context.currentTime)
