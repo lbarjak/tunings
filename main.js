@@ -17,12 +17,9 @@ export default class Main {
     }
 
     play(midiKey, midiChannel, midiVelocity) {
-        this.synthesizer.noteOn(midiKey)
+        this.synthesizer.noteOn(midiKey, midiChannel)
     }
     stop(midiKey, midiChannel) {
-        this.synthesizer.noteOff(midiKey)
-    }
-    freq(midiChannel, midiKey) {
-        return 440 * Math.pow(2, (midiKey - 69) / 12)
+        this.synthesizer.noteOff(midiKey, midiChannel)
     }
 }
