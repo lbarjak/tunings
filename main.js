@@ -1,4 +1,5 @@
 import Midi from './midi.js'
+import Synthesizer from './synthesizer.js'
 
 export default class Main {
     static instance = null
@@ -14,10 +15,11 @@ export default class Main {
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext)()
         this.unlockAudioContext(this.audioCtx)
         this.oscillators = [[], []]
+        this.synthesizer = new Synthesizer()
     }
 
     play(midiKey, midiChannel, midiVelocity) {
-        this.oscillators[midiChannel][
+/*         this.oscillators[midiChannel][
             midiKey
         ] = this.audioCtx.createOscillator()
         this.oscillators[midiChannel][midiKey].type = 'sine'
@@ -28,10 +30,12 @@ export default class Main {
         this.oscillators[midiChannel][midiKey].start(0)
         this.oscillators[midiChannel][midiKey].connect(
             this.audioCtx.destination
-        )
+        ) */
+        this.synthesizer.noteOn(midiKey)
     }
     stop(midiKey, midiChannel) {
-        this.oscillators[midiChannel][midiKey].stop(0)
+        //this.oscillators[midiChannel][midiKey].stop(0)
+        this.synthesizer.noteOff(midiKey)
     }
     freq(midiChannel, midiKey) {
         return 440 * Math.pow(2, (midiKey - 69) / 12)
