@@ -1,5 +1,4 @@
 //based on https://github.com/uber5001/CanvasKeyboard
-'use strict'
 
 import adsr from './adsr.js'
 
