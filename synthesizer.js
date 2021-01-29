@@ -17,14 +17,13 @@ export default class Synthesizer {
         this.gain.connect(this.context.destination)
         this.type = 'square'
         this.context.resume()
-        this.tuningEqual = []
+        this.tuningEqual = new Array(129)
         this.tuningEqualF()
+        this.tuningCircleOfFifth = new Array(129)
+        this.tuningCircleOfFifthF()
     }
     tuningEqualF() {
-/*         for (let i = 0; i <= 128; i++) {
-            this.tuningEqual[i] = 440 * Math.pow(2, (i - 69) / 12)
-            console.log("note " + i + " freq " + this.tuningEqual[i] + " Hz")
-        } */
+        //117 A8 7040.00 (7040 / 2^4 = 440)
         for (let i = 117; i <= 128; i++) {
             this.tuningEqual[i] = 440 * Math.pow(2, (i - 69) / 12)
         }
@@ -32,7 +31,31 @@ export default class Synthesizer {
             this.tuningEqual[i - 12] = this.tuningEqual[i] / 2
         }
         for (let i = 0; i <= 128; i++) {
-            console.log("note " + i + " freq " + this.tuningEqual[i] + " Hz")
+            console.log('note ' + i + ' freq ' + this.tuningEqual[i] + ' Hz')
+        }
+    }
+    tuningCircleOfFifthF() {
+        for (var i = 0; i <= 128; i++) this.tuningCircleOfFifth[i] = 0
+        let startNote = 7040 //440
+        let localStartNote = startNote
+        let naturalFifth = 1.5
+        let actualFifth
+        for (let i = 117; i <= 128; i++) {
+            actualFifth = localStartNote
+            while (actualFifth > startNote * 2.1) {
+                actualFifth = actualFifth / 2
+            }
+            this.tuningCircleOfFifth[i] = actualFifth
+            localStartNote = localStartNote * naturalFifth
+        }
+        this.tuningCircleOfFifth.sort((a, b) => a - b)
+        for (let i = 128; i > 11; i--) {
+            this.tuningCircleOfFifth[i - 12] = this.tuningCircleOfFifth[i] / 2
+        }
+        for (let i = 0; i <= 128; i++) {
+            console.log(
+                'note ' + i + ' freq ' + this.tuningCircleOfFifth[i] + ' Hz'
+            )
         }
     }
     noteOn(note, channel) {
@@ -50,11 +73,30 @@ export default class Synthesizer {
                 0.3,
                 0.3
             )
-/*             this.channels[note][channel].frequency.value =
+            /*             this.channels[note][channel].frequency.value =
                 440 * Math.pow(2, (note - 69) / 12) */
-            console.log(this.tuningEqual[note])
-            this.channels[note][channel].frequency.value = this.tuningEqual[note]
-            console.log(this.channels[note][channel].frequency.value + ' Hz')
+            if (channel == 0) {
+                this.channels[note][channel].frequency.value = this.tuningEqual[
+                    note
+                ]
+                console.log(
+                    "equal",
+                    note,
+                    channel,
+                    this.channels[note][channel].frequency.value + ' Hz'
+                )
+            }
+            if (channel == 1) {
+                this.channels[note][channel].frequency.value = this.tuningCircleOfFifth[
+                    note
+                ]
+                console.log(
+                    "fifth",
+                    note,
+                    channel,
+                    this.channels[note][channel].frequency.value + ' Hz'
+                )
+            }
             this.channels[note][channel].type = this.type
             this.channels[note][channel].connect(this.gain)
             this.channels[note][channel].start(this.context.currentTime)
