@@ -49,7 +49,7 @@ export default class Midi {
                 midiChannel,
                 ' midiKey:',
                 midiKey,
-                'midiVelocití',
+                'midiVelocity',
                 midiVelocity
             )
             if (midiEvent == '9') {
