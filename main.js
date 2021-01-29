@@ -3,7 +3,7 @@ import Synthesizer from './synthesizer.js'
 
 export default class Main {
     static instance = null
-
+    //singleton factory
     static getInstance() {
         if (!Main.instance) {
             Main.instance = new Main()

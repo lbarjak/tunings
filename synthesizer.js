@@ -17,9 +17,9 @@ export default class Synthesizer {
         this.gain.connect(this.context.destination)
         this.type = 'square'
         this.context.resume()
-        this.tuningEqual = new Array(129)
+        this.tuningEqual = new Array(129).fill(0)
         this.tuningEqualF()
-        this.tuningCircleOfFifth = new Array(129)
+        this.tuningCircleOfFifth = new Array(129).fill(0)
         this.tuningCircleOfFifthF()
     }
     tuningEqualF() {
@@ -30,13 +30,9 @@ export default class Synthesizer {
         for (let i = 128; i > 11; i--) {
             this.tuningEqual[i - 12] = this.tuningEqual[i] / 2
         }
-        for (let i = 0; i <= 128; i++) {
-            console.log('note ' + i + ' freq ' + this.tuningEqual[i] + ' Hz')
-        }
     }
     tuningCircleOfFifthF() {
-        for (var i = 0; i <= 128; i++) this.tuningCircleOfFifth[i] = 0
-        let startNote = 7040 //440
+        let startNote = 7040
         let localStartNote = startNote
         let naturalFifth = 1.5
         let actualFifth
@@ -51,11 +47,6 @@ export default class Synthesizer {
         this.tuningCircleOfFifth.sort((a, b) => a - b)
         for (let i = 128; i > 11; i--) {
             this.tuningCircleOfFifth[i - 12] = this.tuningCircleOfFifth[i] / 2
-        }
-        for (let i = 0; i <= 128; i++) {
-            console.log(
-                'note ' + i + ' freq ' + this.tuningCircleOfFifth[i] + ' Hz'
-            )
         }
     }
     noteOn(note, channel) {
