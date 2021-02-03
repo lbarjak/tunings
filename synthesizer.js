@@ -49,6 +49,10 @@ export default class Synthesizer {
         }
     }
     noteOn(note, channel) {
+        if(channel > 1) {
+            console.log("There is not a tunning on this cahannel!")
+            return null
+        }
         if (!this.channels[note]) {
             this.channels[note] = {}
             this.channels[note][channel] = false
@@ -93,6 +97,10 @@ export default class Synthesizer {
         }
     }
     noteOff(note, channel) {
+        if(channel > 1) {
+            console.log("There is not a tunning on this cahannel!")
+            return null
+        }
         this.channels[note][channel].stop(this.context.currentTime)
         this.channels[note][channel] = false
     }
