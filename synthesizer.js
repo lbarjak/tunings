@@ -50,7 +50,7 @@ export default class Synthesizer {
     }
     noteOn(note, channel) {
         if(channel > 1) {
-            console.log("There is not a tunning on this cahannel!")
+            console.log("There is not a tunning on this channel!")
             return null
         }
         if (!this.channels[note]) {
