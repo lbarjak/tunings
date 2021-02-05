@@ -3,6 +3,14 @@
 import adsr from './adsr.js'
 
 export default class Synthesizer {
+    static instance = null
+    //singleton factory
+    static getInstance() {
+        if (!Synthesizer.instance) {
+            Synthesizer.instance = new Synthesizer()
+        }
+        return Synthesizer.instance
+    }
     constructor() {
         this.channels = []
         this.context = new (window.AudioContext ||

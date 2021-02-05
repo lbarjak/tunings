@@ -9,7 +9,7 @@ body {
   /* border: 1px dotted red; */
 }
 
-#fifth {
+#fifths {
   grid-area: b;
   justify-self: center;
 }

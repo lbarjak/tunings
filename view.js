@@ -1,8 +1,10 @@
+import Synthesizer from "./synthesizer.js"
+
 export default class View {
-    constructor(synthesizer) {
+    constructor() {
         this.checkboxes = []
         this.clicked = []
-        this.synthesizer = synthesizer
+        this.synthesizer = Synthesizer.getInstance()
         this.notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F","F#" ,"G", "G#"]
         this.write_fifths()
     }

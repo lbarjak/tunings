@@ -14,7 +14,7 @@ export default class Main {
     }
     constructor() {
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext)()
-        this.synthesizer = new Synthesizer()
+        this.synthesizer = Synthesizer.getInstance()
         this.view = new View(this.synthesizer)
     }
 
