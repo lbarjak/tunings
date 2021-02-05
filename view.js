@@ -10,8 +10,8 @@ export default class View {
     }
 
     write_fifths() {
-        let startnote = 69 //69 440 Hz, 81 880 Hz
-        for (let i = 0; i <= 12; i++) {
+        let startnote = 57 //57 220 Hz, 69 440 Hz, 81 880 Hz
+        for (let i = 0; i <= 36; i++) {
             fifths.innerHTML +=
                 '<div><input type="checkbox" name="checkbox' +
                 i +
@@ -30,7 +30,7 @@ export default class View {
                 ).toFixed(2) +
                 ' %</div>'
         }
-        for (let i = 0; i <= 12; i++) {
+        for (let i = 0; i <= 36; i++) {
             this.checkboxes[i] = document.querySelector(
                 'input[name="checkbox' + i + '"]'
             )
