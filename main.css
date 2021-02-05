@@ -12,6 +12,11 @@ body {
 #fifths {
   grid-area: b;
   justify-self: center;
+  text-align: right;
+}
+
+table, th {
+  font-weight: normal;
 }
 
 

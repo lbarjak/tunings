@@ -1,11 +1,24 @@
-import Synthesizer from "./synthesizer.js"
+import Synthesizer from './synthesizer.js'
 
 export default class View {
     constructor() {
         this.checkboxes = []
         this.clicked = []
         this.synthesizer = Synthesizer.getInstance()
-        this.notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F","F#" ,"G", "G#"]
+        this.notes = [
+            'A',
+            'A#',
+            'B',
+            'C',
+            'C#',
+            'D',
+            'D#',
+            'E',
+            'F',
+            'F#',
+            'G',
+            'G#'
+        ]
         this.write_fifths()
     }
 
@@ -13,22 +26,23 @@ export default class View {
         let startnote = 57 //57 220 Hz, 69 440 Hz, 81 880 Hz
         for (let i = 0; i <= 36; i++) {
             fifths.innerHTML +=
-                '<div><input type="checkbox" name="checkbox' +
+                '<tr><th><input type="checkbox" name="checkbox' +
                 i +
-                '">&nbsp&nbsp&nbsp' +
-                this.notes[(startnote - 9 + i) % 12] + ((startnote - 27 + i) / 12).toFixed(0) +
-                '&nbsp&nbsp&nbsp' +
+                '"></th><th>' +
+                this.notes[(startnote - 9 + i) % 12] +
+                ((startnote - 27 + i) / 12).toFixed(0) +
+                '</th><th>' +
                 this.synthesizer.tuningEqual[i + startnote].toFixed(4) +
-                '&nbsp&nbsp&nbsp' +
+                '</th><th>' +
                 this.synthesizer.tuningCircleOfFifth[i + startnote].toFixed(4) +
-                '&nbsp&nbsp&nbsp' +
+                '</th><th>' +
                 (
                     (100 *
                         (this.synthesizer.tuningCircleOfFifth[i + startnote] -
                             this.synthesizer.tuningEqual[i + startnote])) /
                     this.synthesizer.tuningEqual[i + startnote]
                 ).toFixed(2) +
-                ' %</div>'
+                ' %</th></tr>'
         }
         for (let i = 0; i <= 36; i++) {
             this.checkboxes[i] = document.querySelector(
