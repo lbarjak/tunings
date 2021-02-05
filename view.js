@@ -3,16 +3,19 @@ export default class View {
         this.checkboxes = []
         this.clicked = []
         this.synthesizer = synthesizer
+        this.notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F","F#" ,"G", "G#"]
         this.write_fifths()
     }
 
     write_fifths() {
-        let startnote = 69 //440 Hz
+        let startnote = 69 //69 440 Hz, 81 880 Hz
         for (let i = 0; i <= 12; i++) {
             fifths.innerHTML +=
                 '<div><input type="checkbox" name="checkbox' +
                 i +
                 '">&nbsp&nbsp&nbsp' +
+                this.notes[(startnote - 9 + i) % 12] + ((startnote - 27 + i) / 12).toFixed(0) +
+                '&nbsp&nbsp&nbsp' +
                 this.synthesizer.tuningEqual[i + startnote].toFixed(4) +
                 '&nbsp&nbsp&nbsp' +
                 this.synthesizer.tuningCircleOfFifth[i + startnote].toFixed(4) +
