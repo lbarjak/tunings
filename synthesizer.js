@@ -57,8 +57,8 @@ export default class Synthesizer {
         }
     }
     noteOn(note, channel) {
-        if(channel > 1) {
-            console.log("There is not a tunning on this channel!")
+        if (channel > 1) {
+            console.log('There is not a tunning on this channel!')
             return null
         }
         if (!this.channels[note]) {
@@ -66,7 +66,8 @@ export default class Synthesizer {
             this.channels[note][channel] = false
         }
         if (!this.channels[note][channel]) {
-            /*             this.channels[note][channel] = this.context.createOscillator();
+            //sine, square, sawtooth, triangle, custom
+            /* this.channels[note][channel] = this.context.createOscillator();
             this.channels[note][channel].type = 'sine' */
             this.channels[note][channel] = new adsr(
                 this.context,
@@ -75,25 +76,23 @@ export default class Synthesizer {
                 0.3,
                 0.3
             )
-            /*             this.channels[note][channel].frequency.value =
-                440 * Math.pow(2, (note - 69) / 12) */
             if (channel == 0) {
                 this.channels[note][channel].frequency.value = this.tuningEqual[
                     note
                 ]
                 console.log(
-                    "equal",
+                    'equal',
                     note,
                     channel,
                     this.channels[note][channel].frequency.value + ' Hz'
                 )
             }
             if (channel == 1) {
-                this.channels[note][channel].frequency.value = this.tuningCircleOfFifth[
-                    note
-                ]
+                this.channels[note][
+                    channel
+                ].frequency.value = this.tuningCircleOfFifth[note]
                 console.log(
-                    "fifth",
+                    'fifth',
                     note,
                     channel,
                     this.channels[note][channel].frequency.value + ' Hz'
@@ -105,8 +104,8 @@ export default class Synthesizer {
         }
     }
     noteOff(note, channel) {
-        if(channel > 1) {
-            console.log("There is not a tunning on this channel!")
+        if (channel > 1) {
+            console.log('There is not a tunning on this channel!')
             return null
         }
         this.channels[note][channel].stop(this.context.currentTime)
