@@ -1,5 +1,6 @@
 import Midi from './midi.js'
 import Synthesizer from './synthesizer.js'
+import View from './view.js'
 
 export default class Main {
     static instance = null
@@ -14,6 +15,7 @@ export default class Main {
     constructor() {
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext)()
         this.synthesizer = new Synthesizer()
+        this.view = new View(this.synthesizer)
     }
 
     play(midiKey, midiChannel, midiVelocity) {
