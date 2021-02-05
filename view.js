@@ -19,9 +19,9 @@ export default class View {
                 '&nbsp&nbsp&nbsp' +
                 (
                     (100 *
-                        (this.synthesizer.tuningEqual[i] -
-                            this.synthesizer.tuningCircleOfFifth[i])) /
-                    this.synthesizer.tuningEqual[i]
+                        (this.synthesizer.tuningCircleOfFifth[i + startnote] -
+                            this.synthesizer.tuningEqual[i + startnote])) /
+                    this.synthesizer.tuningEqual[i + startnote]
                 ).toFixed(2) +
                 ' %</div>'
         }
