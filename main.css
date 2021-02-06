@@ -1,27 +1,28 @@
 body {
+    font-family: Helvetica, Arial, Sans-Serif;
     background-color: lightgray;
-    background-image: url("1024px-Pitch_class_space.svg.png");
+    background-image: url('1024px-Pitch_class_space.svg.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    /* border: 1px solid orange; */
 }
 
 .wrapper {
-  display: grid;
-  grid-template-areas: "a b c";
-  /* border: 1px dotted red; */
+    display: grid;
+    grid-template-areas: 'a b c';
+    /* border: 1px dotted red; */
 }
 
 #fifths {
-  grid-area: b;
-  justify-self: center;
-  text-align: right;
+    grid-area: b;
+    justify-self: center;
+    text-align: right;
 }
 
-/* table, th {
+table, th {
   font-weight: normal;
-} */
-
-
-
+}
+#all0,
+#all1 {
+    text-align: center;
+}

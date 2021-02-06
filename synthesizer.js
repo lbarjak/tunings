@@ -108,7 +108,9 @@ export default class Synthesizer {
             console.log('There is not a tunning on this channel!')
             return null
         }
-        this.channels[note][channel].stop(this.context.currentTime)
-        this.channels[note][channel] = false
+        if (this.channels[note][channel]) {
+            this.channels[note][channel].stop(this.context.currentTime)
+            this.channels[note][channel] = false
+        }
     }
 }

@@ -54,12 +54,14 @@ export default class View {
                         .checked
                 ) {
                     console.log('btns[' + i + '] checked')
-                    this.synthesizer.noteOn(i + startnote, 0)
-                    this.synthesizer.noteOn(i + startnote, 1)
+                    if (document.querySelector('input[name="all0"]').checked)
+                        this.synthesizer.noteOn(i + startnote, 0)
+                    if (document.querySelector('input[name="all1"]').checked)
+                        this.synthesizer.noteOn(i + startnote, 1)
                 } else {
                     console.log('btns[' + i + '] up')
-                    this.synthesizer.noteOff(i + startnote, 0)
-                    this.synthesizer.noteOff(i + startnote, 1)
+                        this.synthesizer.noteOff(i + startnote, 0)
+                        this.synthesizer.noteOff(i + startnote, 1)
                 }
             }.bind(this)
         }
