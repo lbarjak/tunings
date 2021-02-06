@@ -13,9 +13,8 @@ export default class Main {
         return Main.instance
     }
     constructor() {
-        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)()
         this.synthesizer = Synthesizer.getInstance()
-        this.view = new View(this.synthesizer)
+        this.view = new View()
     }
 
     play(midiKey, midiChannel, midiVelocity) {

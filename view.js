@@ -2,10 +2,15 @@ import Synthesizer from './synthesizer.js'
 
 export default class View {
     constructor() {
-        this.checkboxes = []
-        this.clicked = []
         this.synthesizer = Synthesizer.getInstance()
-        this.notes = [
+        this.write_fifths()
+    }
+
+    write_fifths() {
+        let startnote = 57 //57 220 Hz, 69 440 Hz, 81 880 Hz
+        let checkboxes = []
+        let clicked = []
+        let notes = [
             'A',
             'A#',
             'B',
@@ -19,18 +24,12 @@ export default class View {
             'G',
             'G#'
         ]
-        //this.allOff
-        this.write_fifths()
-    }
-
-    write_fifths() {
-        let startnote = 57 //57 220 Hz, 69 440 Hz, 81 880 Hz
         for (let i = 0; i <= 36; i++) {
             fifths.innerHTML +=
                 '<tr><th><input type="checkbox" name="checkbox' +
                 i +
                 '"></th><th>' +
-                this.notes[(startnote - 9 + i) % 12] +
+                notes[(startnote - 9 + i) % 12] +
                 ((startnote - 27 + i) / 12).toFixed(0) +
                 '</th><th>' +
                 this.synthesizer.tuningEqual[i + startnote].toFixed(4) +
@@ -46,10 +45,10 @@ export default class View {
                 ' %</th></tr>'
         }
         for (let i = 0; i <= 36; i++) {
-            this.checkboxes[i] = document.querySelector(
+            checkboxes[i] = document.querySelector(
                 'input[name="checkbox' + i + '"]'
             )
-            this.checkboxes[i].onclick = function () {
+            checkboxes[i].onclick = function () {
                 if (
                     document.querySelector('input[name="checkbox' + i + '"]')
                         .checked
@@ -66,9 +65,9 @@ export default class View {
                 }
             }.bind(this)
         }
-        this.allOff = document.querySelector('input[name="allOff"]')
-        this.allOff.onclick = function () {
-            if (this.allOff.checked) {
+        let allOff = document.querySelector('input[name="allOff"]')
+        allOff.onclick = function () {
+            if (allOff.checked) {
                 for (let i = 0; i <= 36; i++) {
                     if (
                         document.querySelector(
@@ -82,7 +81,9 @@ export default class View {
                         this.synthesizer.noteOff(i + startnote, 1)
                     }
                 }
-                setTimeout(() => {  this.allOff.checked = false }, 300);
+                setTimeout(() => {
+                    allOff.checked = false
+                }, 300)
             }
         }.bind(this)
     }
