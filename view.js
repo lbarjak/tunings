@@ -19,7 +19,7 @@ export default class View {
             'G',
             'G#'
         ]
-        this.allOff
+        //this.allOff
         this.write_fifths()
     }
 
