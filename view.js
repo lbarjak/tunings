@@ -19,6 +19,7 @@ export default class View {
             'G',
             'G#'
         ]
+        this.allOff
         this.write_fifths()
     }
 
@@ -60,10 +61,29 @@ export default class View {
                         this.synthesizer.noteOn(i + startnote, 1)
                 } else {
                     console.log('btns[' + i + '] up')
-                        this.synthesizer.noteOff(i + startnote, 0)
-                        this.synthesizer.noteOff(i + startnote, 1)
+                    this.synthesizer.noteOff(i + startnote, 0)
+                    this.synthesizer.noteOff(i + startnote, 1)
                 }
             }.bind(this)
         }
+        this.allOff = document.querySelector('input[name="allOff"]')
+        this.allOff.onclick = function () {
+            if (this.allOff.checked) {
+                for (let i = 0; i <= 36; i++) {
+                    if (
+                        document.querySelector(
+                            'input[name="checkbox' + i + '"]'
+                        ).checked
+                    ) {
+                        document.querySelector(
+                            'input[name="checkbox' + i + '"]'
+                        ).checked = false
+                        this.synthesizer.noteOff(i + startnote, 0)
+                        this.synthesizer.noteOff(i + startnote, 1)
+                    }
+                }
+                setTimeout(() => {  this.allOff.checked = false }, 300);
+            }
+        }.bind(this)
     }
 }
