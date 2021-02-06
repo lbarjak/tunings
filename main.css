@@ -1,5 +1,9 @@
 body {
     background-color: lightgray;
+    background-image: url("1024px-Pitch_class_space.svg.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     /* border: 1px solid orange; */
 }
 
@@ -15,8 +19,9 @@ body {
   text-align: right;
 }
 
-table, th {
+/* table, th {
   font-weight: normal;
-}
+} */
+
 
 
