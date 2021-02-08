@@ -39,11 +39,11 @@ export default class Synthesizer {
         }
     }
     tuningCircleOfFifthF() {
-        let startNote = 7040
+        let startNote = 8343.703703703702
         let localStartNote = startNote
         let naturalFifth = 1.5
         let actualFifth
-        for (let i = 117; i <= 128; i++) {
+        for (let i = 120; i <= 131; i++) {
             actualFifth = localStartNote
             while (actualFifth > startNote * 2.1) {
                 actualFifth = actualFifth / 2
@@ -52,7 +52,7 @@ export default class Synthesizer {
             localStartNote = localStartNote * naturalFifth
         }
         this.tuningCircleOfFifth.sort((a, b) => a - b)
-        for (let i = 128; i > 11; i--) {
+        for (let i = 131; i > 11; i--) {
             this.tuningCircleOfFifth[i - 12] = this.tuningCircleOfFifth[i] / 2
         }
     }

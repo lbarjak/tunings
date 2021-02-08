@@ -32,9 +32,9 @@ export default class View {
                 notes[(startnote - 9 + i) % 12] +
                 ((startnote - 27 + i) / 12).toFixed(0) +
                 '</th><th>' +
-                this.synthesizer.tuningEqual[i + startnote].toFixed(4) +
+                this.synthesizer.tuningEqual[i + startnote].toFixed(2) +
                 '</th><th>' +
-                this.synthesizer.tuningCircleOfFifth[i + startnote].toFixed(4) +
+                this.synthesizer.tuningCircleOfFifth[i + startnote].toFixed(2) +
                 '</th><th>' +
                 (
                     (100 *
