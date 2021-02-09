@@ -12,17 +12,16 @@ export default class Synthesizer {
         return Synthesizer.instance
     }
     constructor() {
-        this.channels = []
+        this.oscillators = []
         this.context = new (window.AudioContext ||
             window.webkitAudioContext ||
             window.mozAudioContext ||
             window.oAudioContext ||
             window.msAudioContext)()
-        const destination = this.context.destination
-        this.gain = this.context.createGain()
+        /*         this.gain = this.context.createGain()
         this.gain.gain.value = 0.1
-        this.gain.connect(this.context.destination)
-        this.type = 'square'
+        this.gain.connect(this.context.destination) */
+        //this.type = 'square'
         this.context.resume()
         this.tuningEqual = new Array(129).fill(0)
         this.tuningEqualF()
@@ -61,15 +60,16 @@ export default class Synthesizer {
             console.log('There is not a tunning on this channel!')
             return null
         }
-        if (!this.channels[note]) {
-            this.channels[note] = {}
-            this.channels[note][channel] = false
+        if (!this.oscillators[note]) {
+            this.oscillators[note] = {}
+            this.oscillators[note][channel] = false
         }
-        if (!this.channels[note][channel]) {
+        if (!this.oscillators[note][channel]) {
             //sine, square, sawtooth, triangle, custom
-            /* this.channels[note][channel] = this.context.createOscillator();
-            this.channels[note][channel].type = 'sine' */
-            this.channels[note][channel] = new adsr(
+            this.oscillators[note][channel] = this.context.createOscillator()
+            //this.oscillators[note][channel].type = 'sine'
+            this.oscillators[note][channel].type = 'square'
+            this.oscillators[note][channel] = new adsr(
                 this.context,
                 0,
                 2,
@@ -77,30 +77,43 @@ export default class Synthesizer {
                 0.3
             )
             if (channel == 0) {
-                this.channels[note][channel].frequency.value = this.tuningEqual[
-                    note
-                ]
+                this.oscillators[note][
+                    channel
+                ].frequency.value = this.tuningEqual[note]
+                this.gainL = this.context.createGain()
+                this.gainL.gain.value = 0.1
+                this.pannerL = this.context.createStereoPanner()
+                this.pannerL.pan.value = -0.5
+                this.oscillators[note][channel].connect(this.gainL)
+                this.gainL.connect(this.pannerL)
+                this.pannerL.connect(this.context.destination)
+
                 console.log(
                     'equal',
                     note,
                     channel,
-                    this.channels[note][channel].frequency.value + ' Hz'
+                    this.oscillators[note][channel].frequency.value + ' Hz'
                 )
             }
             if (channel == 1) {
-                this.channels[note][
+                this.oscillators[note][
                     channel
                 ].frequency.value = this.tuningCircleOfFifth[note]
+                this.gainR = this.context.createGain()
+                this.gainR.gain.value = 0.1
+                this.pannerR = this.context.createStereoPanner()
+                this.pannerR.pan.value = 0.5
+                this.oscillators[note][channel].connect(this.gainR)
+                this.gainR.connect(this.pannerR)
+                this.pannerR.connect(this.context.destination)
                 console.log(
                     'fifth',
                     note,
                     channel,
-                    this.channels[note][channel].frequency.value + ' Hz'
+                    this.oscillators[note][channel].frequency.value + ' Hz'
                 )
             }
-            this.channels[note][channel].type = this.type
-            this.channels[note][channel].connect(this.gain)
-            this.channels[note][channel].start(this.context.currentTime)
+            this.oscillators[note][channel].start(this.context.currentTime)
         }
     }
     noteOff(note, channel) {
@@ -108,9 +121,9 @@ export default class Synthesizer {
             console.log('There is not a tunning on this channel!')
             return null
         }
-        if (this.channels[note][channel]) {
-            this.channels[note][channel].stop(this.context.currentTime)
-            this.channels[note][channel] = false
+        if (this.oscillators[note][channel]) {
+            this.oscillators[note][channel].stop(this.context.currentTime)
+            this.oscillators[note][channel] = false
         }
     }
 }
