@@ -1,10 +1,10 @@
-import Main from './main.js'
+import Synthesizer from './synthesizer.js'
 
 export default class Midi {
     constructor() {
         navigator.requestMIDIAccess().then(this.midi)
         self = this
-        this.main = Main.getInstance()
+        this.synthesizer = Synthesizer.getInstance()
     }
 
     midi(response) {
@@ -54,10 +54,10 @@ export default class Midi {
             )
             if (midiEvent == '9') {
                 //console.log('9')
-                self.main.play(midiKey, midiChannel, midiVelocity)
+                self.synthesizer.noteOn(midiKey, midiChannel, midiVelocity)
             } else {
                 //console.log('8')
-                self.main.stop(midiKey, midiChannel)
+                self.synthesizer.noteOff(midiKey, midiChannel)
             }
         }
     }
