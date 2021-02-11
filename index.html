@@ -11,9 +11,11 @@
     <meta name="keywords" content="musical tunings">
     <link rel="stylesheet" href="main.css">
     <script type="module">
-        import Main from './main.js';
+        import Midi from './midi.js'
+        import View from './view.js'
         window.onload = function (e) {
-            new Main()
+            new Midi()
+            new View()
         }
     </script>
 </head>
