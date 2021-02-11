@@ -3,6 +3,7 @@ export default class Tunings {
         this.tuningEqual = new Array(129).fill(0)
         this.tuningCircleOfFifth = new Array(129).fill(0)
     }
+
     tuningEqualF() {
         //117 A8 7040.00 (7040 / 2^4 = 440)
         for (let i = 117; i <= 128; i++) {
