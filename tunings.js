@@ -2,6 +2,8 @@ export default class Tunings {
     constructor() {
         this.tuningEqual = new Array(129).fill(0)
         this.tuningCircleOfFifth = new Array(129).fill(0)
+        this.tuningEqualF()
+        this.tuningCircleOfFifthF()
     }
 
     tuningEqualF() {

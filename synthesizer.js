@@ -22,9 +22,7 @@ export default class Synthesizer {
         this.context.resume()
         this.tunings = new Tunings()
         this.tuningEqual = this.tunings.tuningEqual
-        this.tunings.tuningEqualF()
         this.tuningCircleOfFifth = this.tunings.tuningCircleOfFifth
-        this.tunings.tuningCircleOfFifthF()
     }
 
     noteOn(note, channel) {
