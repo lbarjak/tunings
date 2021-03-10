@@ -4,7 +4,7 @@ import adsr from './adsr.js'
 import Tunings from './tunings.js'
 
 export default class Synthesizer {
-    static instance = null
+    static instance
     //singleton factory
     static getInstance() {
         if (!Synthesizer.instance) {
