@@ -7,21 +7,23 @@ body {
     background-position: center;
 }
 
-.wrapper {
-    display: grid;
-    grid-template-areas: 'a b c';
-    /* border: 1px dotted red; */
+#info {
+    text-align: center;
+    font-size: small;
 }
 
 #fifths {
-    grid-area: b;
+    margin-left: auto;
+    margin-right: auto;
     justify-self: center;
     text-align: right;
 }
 
-table, th {
-  font-weight: normal;
+table,
+th {
+    font-weight: normal;
 }
+
 #all0,
 #all1 {
     text-align: center;
