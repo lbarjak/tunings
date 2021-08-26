@@ -1,4 +1,4 @@
-export default class adsr {
+export default class ADSR {
 
     constructor(context, a, d, s, r, fa = 0, fd = 0.1) {
         const osc = context.createOscillator();
