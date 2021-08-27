@@ -4,14 +4,13 @@ export default class View {
     constructor() {
         this.synthesizer = Synthesizer.getInstance()
         this.checkboxes = []
-        this.startnote
+        this.startnote = 57 //57 220 Hz, 69 440 Hz, 81 880 Hz
         this.writeFifths()
         this.checkFifths()
         this.fullOff()
     }
 
     writeFifths() {
-        this.startnote = 57 //57 220 Hz, 69 440 Hz, 81 880 Hz
         let notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
         for (let i = 0; i <= 36; i++) {
             fifths.innerHTML +=
@@ -34,7 +33,7 @@ export default class View {
                 ' %</th></tr>'
         }
     }
-    
+
     checkFifths() {
         for (let i = 0; i <= 36; i++) {
             this.checkboxes[i] = document.querySelector('input[name="checkbox' + i + '"]')
