@@ -7,7 +7,7 @@ export default class View {
         this.startnote = 57 //57 220 Hz, 69 440 Hz, 81 880 Hz
         this.writeFifths()
         this.checkFifths()
-        this.fullOff()
+        this.allOff()
     }
 
     writeFifths() {
@@ -37,13 +37,11 @@ export default class View {
         for (let i = 0; i < this.checkboxes.length; i++) {
             this.checkboxes[i].onclick = () => {
                 if (this.checkboxes[i].checked) {
-                    console.log('btns[' + i + '] checked')
                     if (document.querySelector('input[name="all0"]').checked)
                         this.synthesizer.noteOn(i + this.startnote, 0)
                     if (document.querySelector('input[name="all1"]').checked)
                         this.synthesizer.noteOn(i + this.startnote, 1)
                 } else {
-                    console.log('btns[' + i + '] up')
                     this.synthesizer.noteOff(i + this.startnote, 0)
                     this.synthesizer.noteOff(i + this.startnote, 1)
                 }
@@ -51,11 +49,11 @@ export default class View {
         }
     }
 
-    fullOff() {
+    allOff = () => {
         let allOff = document.querySelector('input[name="allOff"]')
         allOff.onclick = () => {
             if (allOff.checked) {
-                for (let i = 0; i <= 36; i++) {
+                for (let i = 0; i < this.checkboxes.length; i++) {
                     if (this.checkboxes[i].checked) {
                         this.checkboxes[i].checked = false
                         this.synthesizer.noteOff(i + this.startnote, 0)
