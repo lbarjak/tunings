@@ -14,9 +14,7 @@ export default class View {
         let notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
         for (let i = 0; i <= 36; i++) {
             fifths.innerHTML +=
-                '<tr><th><input type="checkbox" name="checkbox' +
-                i +
-                '"></th><th>' +
+                '<tr><th><input type="checkbox" name="checkbox"></th><th>' +
                 notes[(this.startnote - 9 + i) % 12] +
                 ((this.startnote - 27 + i) / 12).toFixed(0) +
                 '</th><th>' +
@@ -35,10 +33,10 @@ export default class View {
     }
 
     checkFifths() {
-        for (let i = 0; i <= 36; i++) {
-            this.checkboxes[i] = document.querySelector('input[name="checkbox' + i + '"]')
+        this.checkboxes = document.querySelectorAll('input[name="checkbox"]')
+        for (let i = 0; i < this.checkboxes.length; i++) {
             this.checkboxes[i].onclick = () => {
-                if (document.querySelector('input[name="checkbox' + i + '"]').checked) {
+                if (this.checkboxes[i].checked) {
                     console.log('btns[' + i + '] checked')
                     if (document.querySelector('input[name="all0"]').checked)
                         this.synthesizer.noteOn(i + this.startnote, 0)
@@ -58,8 +56,8 @@ export default class View {
         allOff.onclick = () => {
             if (allOff.checked) {
                 for (let i = 0; i <= 36; i++) {
-                    if (document.querySelector('input[name="checkbox' + i + '"]').checked) {
-                        document.querySelector('input[name="checkbox' + i + '"]').checked = false
+                    if (this.checkboxes[i].checked) {
+                        this.checkboxes[i].checked = false
                         this.synthesizer.noteOff(i + this.startnote, 0)
                         this.synthesizer.noteOff(i + this.startnote, 1)
                     }
