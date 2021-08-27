@@ -7,6 +7,7 @@ export default class View {
         this.startnote
         this.writeFifths()
         this.checkFifths()
+        this.fullOff()
     }
 
     writeFifths() {
@@ -33,10 +34,11 @@ export default class View {
                 ' %</th></tr>'
         }
     }
+    
     checkFifths() {
         for (let i = 0; i <= 36; i++) {
             this.checkboxes[i] = document.querySelector('input[name="checkbox' + i + '"]')
-            this.checkboxes[i].onclick = function () {
+            this.checkboxes[i].onclick = () => {
                 if (document.querySelector('input[name="checkbox' + i + '"]').checked) {
                     console.log('btns[' + i + '] checked')
                     if (document.querySelector('input[name="all0"]').checked)
@@ -48,10 +50,13 @@ export default class View {
                     this.synthesizer.noteOff(i + this.startnote, 0)
                     this.synthesizer.noteOff(i + this.startnote, 1)
                 }
-            }.bind(this)
+            }
         }
+    }
+
+    fullOff() {
         let allOff = document.querySelector('input[name="allOff"]')
-        allOff.onclick = function () {
+        allOff.onclick = () => {
             if (allOff.checked) {
                 for (let i = 0; i <= 36; i++) {
                     if (document.querySelector('input[name="checkbox' + i + '"]').checked) {
@@ -64,6 +69,6 @@ export default class View {
                     allOff.checked = false
                 }, 300)
             }
-        }.bind(this)
+        }
     }
 }
